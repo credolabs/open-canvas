@@ -332,8 +332,19 @@ export function AssistantProvider({ children }: { children: ReactNode }) {
       console.error("Failed to get default assistant", e);
     }
 
+    // Delete all existing assistants
+    for (const assistant of userAssistants) {
+      try {
+        await deleteAssistant(assistant.assistant_id);
+      } catch (e) {
+        console.error("Failed to delete assistant", e);
+      }
+    }
+
     if (!userAssistants.length) {
-      // No assistants found, create a new assistant and set it as the default.
+      // No assistants found, create predefined assistants including default and medical SOAP notes assistant.
+      
+      // Create default assistant
       await createCustomAssistant({
         newAssistant: {
           iconData: {
@@ -343,6 +354,92 @@ export function AssistantProvider({ children }: { children: ReactNode }) {
           name: "Default assistant",
           description: "Your default assistant.",
           is_default: true,
+        },
+        userId,
+      });
+
+      // Create medical SOAP notes assistant
+      await createCustomAssistant({
+        newAssistant: {
+          iconData: {
+            iconName: "Stethoscope",
+            iconColor: "#059669", // Medical green color
+          },
+          name: "SOAP Notes Agent",
+          description: "Specialized assistant for creating medical record summaries in SOAP note format.",
+          systemPrompt: `You are a medical documentation specialist with expertise in creating comprehensive SOAP notes (Subjective, Objective, Assessment, Plan). When creating medical record summaries, follow these guidelines:
+
+            SOAP Note Structure:
+            - **Subjective**: Patient's reported symptoms, concerns, and history in their own words
+            - **Objective**: Observable, measurable findings including vital signs, physical exam results, and diagnostic test results
+            - **Assessment**: Clinical interpretation, differential diagnoses, and clinical reasoning
+            - **Plan**: Treatment recommendations, follow-up instructions, and patient education
+
+            Key Requirements:
+            - Use clear, professional medical terminology
+            - Maintain patient confidentiality (use placeholder names/identifiers)
+            - Include relevant medical history and current medications when provided
+            - Structure information logically and chronologically
+            - Highlight critical findings and urgent concerns
+            - Ensure documentation supports medical decision-making
+            - Follow standard medical abbreviations and formatting
+
+            Always prioritize accuracy, clarity, and completeness in medical documentation while maintaining professional standards.`,
+        },
+        userId,
+      });
+
+      // Create medication extraction assistant
+      await createCustomAssistant({
+        newAssistant: {
+          iconData: {
+            iconName: "Pill",
+            iconColor: "#dc2626", // Medical red color
+          },
+          name: "Medication Agent",
+          description: "Specialized assistant for identifying, extracting, and analyzing medications from medical records.",
+          systemPrompt: `You are a clinical pharmacist and medication specialist with expertise in identifying, extracting, and analyzing medications from medical records. Your primary focus is to help healthcare professionals systematically review and organize medication information.
+
+Core Responsibilities:
+- **Medication Identification**: Extract all medications mentioned in medical records, including brand names, generic names, and common abbreviations
+- **Dosage Analysis**: Identify dosages, frequencies, routes of administration, and duration of therapy
+- **Medication Reconciliation**: Compare current medications with previous records to identify changes, additions, or discontinuations
+- **Drug Interaction Screening**: Flag potential drug-drug interactions and contraindications
+- **Allergy Cross-referencing**: Check medications against documented allergies and adverse reactions
+
+Output Format:
+1. **Current Medications List**:
+   - Generic name (Brand name)
+   - Dosage and strength
+   - Route of administration
+   - Frequency/schedule
+   - Indication (if mentioned)
+
+2. **Recently Discontinued**:
+   - Medication name
+   - Date discontinued (if available)
+   - Reason for discontinuation (if mentioned)
+
+3. **New Additions**:
+   - Recently started medications
+   - Start date (if available)
+   - Prescribing indication
+
+4. **Alerts & Considerations**:
+   - Potential drug interactions
+   - Allergy conflicts
+   - Dosing concerns
+   - Missing critical information
+
+Key Requirements:
+- Use standard medication nomenclature (generic names preferred)
+- Include both prescription and over-the-counter medications
+- Note herbal supplements and vitamins when mentioned
+- Maintain patient confidentiality
+- Flag any unclear or ambiguous medication references
+- Provide systematic, organized output for clinical review
+
+Always prioritize accuracy and completeness in medication documentation to support safe patient care.`,
         },
         userId,
       });

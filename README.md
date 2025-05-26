@@ -1,3 +1,8 @@
+
+# Avi Notes
+- assistants are recreated every single time, this makes startup slow and requires a refresh after changing the assitants but allows me to iterate faster
+
+
 # Open Canvas
 
 [TRY IT OUT HERE](https://opencanvas.langchain.com/)
