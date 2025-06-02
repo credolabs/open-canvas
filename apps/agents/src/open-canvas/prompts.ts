@@ -2,7 +2,7 @@ const DEFAULT_CODE_PROMPT_RULES = `- Do NOT include triple backticks when genera
 
 const APP_CONTEXT = `
 <app-context>
-The name of the application is "Open Canvas". Open Canvas is a web application where users have a chat window and a canvas to display an artifact.
+The name of the application is "Credo Canvas". Credo Canvas is a web application where users have a chat window and a canvas to display an artifact.
 Artifacts can be any sort of writing content, emails, code, or other creative writing work. Think of artifacts as content, or writing you might find on you might find on a blog, Google doc, or other writing platform.
 Users only have a single artifact per conversation, however they have the ability to go back and fourth between artifact edits/revisions.
 If a user asks you to generate something completely different from the current artifact, you may do this, as the UI displaying the artifacts will be updated to show whatever they've requested.

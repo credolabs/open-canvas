@@ -5,7 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Next.js",
+            "name": "Debug Agent/Server Next.js",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "source ~/.nvm/nvm.sh && nvm use && yarn dev",
+            "cwd": "${workspaceFolder}/apps/agents",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "sourceMaps": true,
+            "smartStep": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/apps/web/src/**",
+                "!**/node_modules/**"
+            ]
+        },
+        {
+            "name": "Debug Web Next.js",
             "type": "node-terminal",
             "request": "launch",
             "command": "source ~/.nvm/nvm.sh && nvm use && yarn dev",
