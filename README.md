@@ -1,6 +1,7 @@
 
 # Avi Notes
 - assistants are recreated every single time, this makes startup slow and requires a refresh after changing the assitants but allows me to iterate faster
+- i've noticed that you might have to clear and refresh cache before loading files or you might get agent update error
 
 
 # Open Canvas
