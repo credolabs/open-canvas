@@ -1,5 +1,46 @@
 # Credo Canvas
 
+## Example Prompts
+
+```
+Pt: 45yo male
+CC: Low back pain x2 wks
+Onset: Gradual, after lifting boxes
+Hx: No trauma, no radiation to legs, no bowel/bladder changes
+PMH: HTN, otherwise well
+Meds: Amlodipine
+Exam: Tender L paraspinal, ↓ flexion, SLR neg, no neuro deficits
+Imp: Mechanical LBP
+Plan: Reassure, advise activity as tolerated, NSAIDs PRN, physio referral, safety-net re red flags
+```
+
+```
+Pt: 28yo female
+CC: Itchy rash on arms x3d
+Onset/trigger: After gardening, possible plant contact
+Hx: No SOB, no facial swelling, no new meds/foods
+PMH: Nil sig
+Exam: Erythematous, raised patches forearms, no weeping, no infection signs
+Imp: Allergic contact dermatitis
+Plan: Topical antihistamine/calamine, oral antihistamine PRN, avoid trigger, f/u if spreading or systemic sx
+```
+
+### EMR-style shorthand
+
+```
+34M, flu sx x4d. Fever, cough, myalgia. No SOB/CP. PMH nil. Obs: T38.2, HR88, sats98. Chest clr. Dx: ILI. Plan: fluids, parac/ibu PRN, rest. RTW when afebrile. Safety-net: SOB/CP/persist fever.
+```
+
+```
+45M, LBP x2wks. Gradual onset post lifting. No rad, no red flags. PMH HTN. Exam: L paraspinal TTP, ↓flex, SLR–, neuro NAD. Dx: mech LBP. Plan: reassure, act as tol, NSAID PRN, physio, safety-net.
+```
+
+```
+28F, itchy rash arms x3d. Trigger gardening/plant. No SOB/facial swell. PMH nil. Exam: erythematous raised patches forearms, no infxn. Dx: contact derm (allergic). Plan: topical/oral antihist PRN, avoid trigger, f/u if spread/systemic.
+```
+
+
+
 ## Setup locally
 
 ### Prerequisites
@@ -85,11 +126,6 @@ Base `.env` file (read by agents and server-side code):
 
 The first step to running Open Canvas locally is to build the application. This is because Open Canvas uses a monorepo setup, and requires workspace dependencies to be build so other packages/apps can access them.
 
-Run the following command from the root of the repository:
-
-```bash
-yarn build
-```
 
 Now we'll cover how to setup and run the LangGraph server locally.
 
@@ -110,3 +146,11 @@ yarn dev
 On initial load, compilation may take a little bit of time.
 
 Then, open [localhost:3000](http://localhost:3000) and select o4-mini model from the dropdown.
+
+
+> **Note:** Build is currently not working. You do not need this step to run the project locally.
+Run the following command from the root of the repository:
+
+```bash
+yarn build
+```
